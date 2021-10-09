@@ -18,22 +18,6 @@ public class PrinterProperties {
 
             inputStream = new FileInputStream(propFileName);
 
-            //use this if you want to load properties from a config file that could be edited for the end user
-
-            /*URL url = PrinterProperties.class.getClassLoader().getResource(propFileName);
-
-            File f = new File(url.getPath());
-            // Populates the array with names of files and directories
-            String[] pathnames = f.list();
-
-            // For each pathname in the pathnames array
-            for (String pathname : pathnames) {
-                // Print the names of files and directories
-                System.out.println(pathname);
-            }
-            inputStream = new FileInputStream(propFileName);
-
-             */
             if (inputStream != null) {
                 prop.load(inputStream);
             } else {
