@@ -6,9 +6,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Seeker {
-    public File[] readPath() {
+    private File[] readPath() {
         File [] files = null;
         try {
             File dir = new File(PrinterProperties.get("printer_path"));
@@ -28,10 +29,34 @@ public class Seeker {
             return(files);
         }
     }
-    public void executeOrder66 () {
-        File[] files = readPath();
+    private void printFiles(File[] files){
+
+    }
+    private void killThoseFiles(File[] files){
         for (File file: files) {
-            System.out.println(file);
+            try{
+                if(!file.delete()){
+                    throw new IOException();
+                }
+                else{
+                    System.out.println("puto");
+                }
+            }
+            catch (IOException e){
+                System.out.println("cannot find or erase file: "+e);
+            }
         }
+    }
+    public void executeOrder66 () {
+        do {
+            File[] files = readPath();
+            killThoseFiles(files);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while (true);
+
     }
 }
